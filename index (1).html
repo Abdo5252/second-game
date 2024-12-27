@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coin Guessing Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      background-color: #f4f4f9;
+    }
+    h1 {
+      color: #333;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Coin Guessing Game</h1>
+  <p>Welcome to the computer guess game! Choose a method to play:</p>
+  <button onclick="startGame(1)">Method 1 (random.random)</button>
+  <button onclick="startGame(2)">Method 2 (random.randint)</button>
+  <p>Then, make your guess:</p>
+  <button onclick="makeGuess('heads')">Heads</button>
+  <button onclick="makeGuess('tails')">Tails</button>
+  <div id="result"></div>
+
+  <script>
+    let computerResult = null;
+
+    // Function to start the game
+    function startGame(method) {
+      if (method === 1) {
+        // Using random.random method
+        const randomNumber = Math.random();
+        computerResult = randomNumber <= 0.5 ? 'heads' : 'tails';
+      } else if (method === 2) {
+        // Using random.randint method
+        const randomNumber = Math.floor(Math.random() * 2);
+        computerResult = randomNumber === 0 ? 'heads' : 'tails';
+      } else {
+        document.getElementById('result').innerText = 'Invalid choice. Please restart the game.';
+        return;
+      }
+      document.getElementById('result').innerText = 'Method selected. Now, make your guess!';
+    }
+
+    // Function to make a guess
+    function makeGuess(userInput) {
+      if (!computerResult) {
+        document.getElementById('result').innerText = 'Please choose a method first!';
+        return;
+      }
+
+      if (userInput === computerResult) {
+        document.getElementById('result').innerText = `You win! Computer result is: ${computerResult}`;
+      } else {
+        document.getElementById('result').innerText = `You lose! Computer result is: ${computerResult}`;
+      }
+
+      // Reset computer result for a new game
+      computerResult = null;
+    }
+  </script>
+</body>
+</html>
